@@ -44,7 +44,6 @@ async function getDetailCardRun(get_id) {
         const database = client.db("Test_Collection_Fah");
         const col = database.collection("Fah_DB");
         
-
         const query = { email: get_id.email };
         const options = { projection: { _id: 0, detail_card: 1}, sort: {id_card: 1} };
          
@@ -55,6 +54,23 @@ async function getDetailCardRun(get_id) {
       await client.close();
     }
   }
+
+//getStyleCard function
+async function getStyleCardRun(get_req) {
+    try {
+        const database = client.db("Test_Collection_Fah");
+        const col = database.collection("Fah_DB");
+
+        const query = { email: get_req.email}
+        const options = { projection: { _id: 0, style_card: 1} }
+
+        const result = await col.findOne(query, options);
+
+        return result
+    } finally {
+        await client.close();
+    }
+}
 
 //insert function
 async function insertRun(insert_req) {
@@ -73,7 +89,8 @@ async function insertRun(insert_req) {
         img_base64: insert_req.img_base64,
         title: insert_req.title,
         detail_card: [
-        ]
+        ],
+        style_card: insert_req.style_card
 
     } 
       const options = { ordered: true };
@@ -101,6 +118,22 @@ async function insertDetailCardRun(insert_DC) {
         await client.close();
     }
   } 
+
+//insertStyleCard function
+async function insertStyleCardRun(insert_SC) {
+    try {
+        const database = client.db("Test_Collection_Fah");
+        const col = database.collection("Fah_DB");
+
+        const ref = { email: insert_SC.email}
+
+        const result = await col.updateOne(ref, { $set: { style_card: insert_SC.style_card }});
+
+        return result
+    } finally {
+        await client.close();
+    }
+}
 
 //update function
 async function updateRun(input_req) {
@@ -154,7 +187,7 @@ async function deleteRun(delete_req) {
     }
 } 
 
-module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun }
+module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun }
 
 
 //dataset

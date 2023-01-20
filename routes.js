@@ -1,5 +1,5 @@
 const express = require('express');
-const { getRun, insertRun, updateRun, deleteRun, getOneRun, getDetailCardRun, insertDetailCardRun } = require('./app');
+const { getRun, insertRun, updateRun, deleteRun, getOneRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun } = require('./app');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
@@ -39,6 +39,16 @@ router.get('/getOne/detailCard', async(req, res) => {
     }
 })
 
+router.get('/getOne/styleCard', async(req, res) => {
+    try{
+        const output = await getStyleCardRun(req.body)
+        res.send(output)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 //insertRun
 router.post('/insert', async(req, res) => {
     try{
@@ -54,6 +64,17 @@ router.post('/insert', async(req, res) => {
 router.post('/insert/detailCard', async(req,res) => {
     try{
         const output = await insertDetailCardRun(req.body)
+        res.send(output)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+//insertStyleCardRun
+router.post('/insert/styleCard', async(req, res) => {
+    try{
+        const output = await insertStyleCardRun(req.body)
         res.send(output)
     }
     catch(error){
