@@ -88,8 +88,7 @@ async function insertRun(insert_req) {
         img_url: insert_req.img_url,
         img_base64: insert_req.img_base64,
         title: insert_req.title,
-        detail_card: [
-        ],
+        detail_card: [],
         style_card: insert_req.style_card
 
     } 
