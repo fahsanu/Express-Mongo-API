@@ -190,6 +190,7 @@ module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetail
 
 
 //dataset
+//change img setting to array
 const datatest = [
     {
         id: 1,
@@ -198,8 +199,8 @@ const datatest = [
         name_first: '',
         name_mid: '',
         name_last: '',
-        img_url   : '',
-        img_base64   : '',
+        img_url   : [],
+        img_base64   : [],
         title: '',
         detail_card: [
             {
