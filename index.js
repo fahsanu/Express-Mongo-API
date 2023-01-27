@@ -5,8 +5,6 @@ var path = require('path')
 const app = express()
 app.use(cors())
 
-
-
 app.use((req, res, next) => {
   
     const auth = {login: 'admin', password: 'password'}
@@ -28,6 +26,6 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-app.listen(3000, () => {
+app.listen(3000, '0.0.0.0', () => {
     console.log(`Server started at ${3000}`)
 });

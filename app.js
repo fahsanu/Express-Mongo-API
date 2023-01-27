@@ -16,8 +16,8 @@ async function getRun() {
         const result = await col.find(query, options).toArray()
         
         return result
-    } catch {
-
+    } catch(error) {
+        error.message
     }
   }
 
@@ -33,8 +33,8 @@ async function getOneRun(getOne_req) {
         const result = await col.findOne(query, options);
 
         return result
-    } catch {
-      
+    } catch(error) {
+        error.message
     }
   }
 
@@ -50,8 +50,8 @@ async function getDetailCardRun(get_id) {
         const result = await col.findOne(query, options);
 
         return result
-    } catch {
-      
+    } catch(error) {
+        error.message
     }
   }
 
@@ -67,8 +67,24 @@ async function getStyleCardRun(get_req) {
         const result = await col.findOne(query, options);
 
         return result
-    } catch {
-      
+    } catch(error) {
+        error.message
+    }
+}
+
+async function login(check_id) {
+    try {
+        const database = client.db("Test_Collection_Fah");
+        const col = database.collection("Fah_DB");
+        const result = await col.findOne({ email: get_req.email});
+
+        if (check_id.email === result) {
+            console.log("checked")
+        } else {
+            console.log("NO")
+        }
+    } catch(error) {
+        error.message
     }
 }
 
@@ -97,8 +113,8 @@ async function insertRun(insert_req) {
       const result = await col.insertOne(docs, options);
       
       return result
-    } catch {
-      
+    } catch(error) {
+        error.message
     }
   } 
 
@@ -113,8 +129,8 @@ async function insertDetailCardRun(insert_DC) {
       const result = await col.updateMany(ref, { $set: { detail_card: insert_DC.detail_card }});
       
       return result
-    } catch {
-      
+    } catch(error) {
+        error.message
     }
   } 
 
@@ -129,8 +145,8 @@ async function insertStyleCardRun(insert_SC) {
         const result = await col.updateOne(ref, { $set: { style_card: insert_SC.style_card }});
 
         return result
-    } catch {
-      
+    } catch(error) {
+        error.message
     }
 }
 
@@ -164,8 +180,8 @@ async function updateRun(input_req) {
         const result = await col.updateOne(filter, updateDoc, options);
 
         return result
-        } catch {
-      
+        } catch(error) {
+            error.message
         }
   } 
 
@@ -176,17 +192,17 @@ async function deleteRun(delete_req) {
         const database = client.db("Test_Collection_Fah");
         const col = database.collection("Fah_DB");
 
-        const query = { email: delete_req.email};
+        const query = { email: delete_req.email };
 
         const result = await col.deleteOne(query);
         
         return result
-    } catch {
-      
+    } catch(error) {
+        error.message
     }
 } 
 
-module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun }
+module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun, login }
 
 
 //dataset
@@ -204,39 +220,6 @@ const datatest = [
         department: '',
         bio: '',
         company: '',
-        detail_card: [
-            {
-                id_card:'',
-                type_card: 'url',
-                title_card: '',
-                url_card: '',
-                status_active: ""
-            },
-            {
-                id_card:'',
-                type_card: 'url',
-                title_card: '',
-                url_card: '',
-                status_active: ""
-            },
-        ],
-        style_card: {
-            color_card: '',
-            color_bg: '',
-            color_text: '',
-            fort_text: '',
-        }
-    },
-    {
-        id: 2,
-        email: 'boo2@gmail.com',
-        name_full: '',
-        name_first: '',
-        name_mid: '',
-        name_last: '',
-        img_url: '',
-        img_base64   : '',
-        title: '',
         detail_card: [
             {
                 id_card:'',

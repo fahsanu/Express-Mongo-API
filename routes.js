@@ -1,10 +1,12 @@
 const express = require('express');
-const { getRun, insertRun, updateRun, deleteRun, getOneRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun } = require('./app');
+const { getRun, insertRun, updateRun, deleteRun, getOneRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun, login } = require('./app');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
+
+
 
 //getRun
 router.get('/get', async (req, res) => {
@@ -28,8 +30,14 @@ router.get('/getOne', async(req, res) => {
     }
 })
 
-router.post('/login', async(req,res) => {
-    
+router.get('/login', async(req,res) => {
+    try{
+        const output = await login(req.body)
+        res.send(output)
+    }
+    catch(error){
+        res.status(500).json({mesaage: error.message})
+    }
 })
 
 //getDetailCardRun
