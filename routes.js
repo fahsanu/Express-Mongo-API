@@ -28,6 +28,10 @@ router.get('/getOne', async(req, res) => {
     }
 })
 
+router.post('/login', async(req,res) => {
+    
+})
+
 //getDetailCardRun
 router.get('/getOne/detailCard', async(req, res) => {
     try{

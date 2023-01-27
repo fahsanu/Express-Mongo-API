@@ -16,8 +16,8 @@ async function getRun() {
         const result = await col.find(query, options).toArray()
         
         return result
-    } finally {
-      await client.close();
+    } catch {
+
     }
   }
 
@@ -33,8 +33,8 @@ async function getOneRun(getOne_req) {
         const result = await col.findOne(query, options);
 
         return result
-    } finally {
-      await client.close();
+    } catch {
+      
     }
   }
 
@@ -50,8 +50,8 @@ async function getDetailCardRun(get_id) {
         const result = await col.findOne(query, options);
 
         return result
-    } finally {
-      await client.close();
+    } catch {
+      
     }
   }
 
@@ -67,8 +67,8 @@ async function getStyleCardRun(get_req) {
         const result = await col.findOne(query, options);
 
         return result
-    } finally {
-        await client.close();
+    } catch {
+      
     }
 }
 
@@ -97,8 +97,8 @@ async function insertRun(insert_req) {
       const result = await col.insertOne(docs, options);
       
       return result
-    } finally {
-        await client.close();
+    } catch {
+      
     }
   } 
 
@@ -113,8 +113,8 @@ async function insertDetailCardRun(insert_DC) {
       const result = await col.updateMany(ref, { $set: { detail_card: insert_DC.detail_card }});
       
       return result
-    } finally {
-        await client.close();
+    } catch {
+      
     }
   } 
 
@@ -129,8 +129,8 @@ async function insertStyleCardRun(insert_SC) {
         const result = await col.updateOne(ref, { $set: { style_card: insert_SC.style_card }});
 
         return result
-    } finally {
-        await client.close();
+    } catch {
+      
     }
 }
 
@@ -164,9 +164,9 @@ async function updateRun(input_req) {
         const result = await col.updateOne(filter, updateDoc, options);
 
         return result
-        } finally {
-          await client.close();
-    }
+        } catch {
+      
+        }
   } 
 
 
@@ -181,8 +181,8 @@ async function deleteRun(delete_req) {
         const result = await col.deleteOne(query);
         
         return result
-    } finally {
-        await client.close();
+    } catch {
+      
     }
 } 
 
@@ -193,15 +193,17 @@ module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetail
 //change img setting to array
 const datatest = [
     {
-        id: 1,
+        id: '', //string gmail123456
         email: 'boo1@gmail.com',
         name_full: '',
         name_first: '',
         name_mid: '',
         name_last: '',
-        img_url   : [],
         img_base64   : [],
         title: '',
+        department: '',
+        bio: '',
+        company: '',
         detail_card: [
             {
                 id_card:'',
