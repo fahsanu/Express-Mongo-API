@@ -26,6 +26,6 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-app.listen(3000, '0.0.0.0', () => {
-    console.log(`Server started at ${3000}`)
+app.listen(8000, '0.0.0.0', () => {
+    console.log(`Server started at ${8000}`)
 });

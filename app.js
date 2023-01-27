@@ -8,8 +8,8 @@ const client = new MongoClient(db);
 //getRun function
 async function getRun() {
     try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
 
         const query = {};
         const options = { projection: { _id: 0 }, sort: { id: 1}};
@@ -24,8 +24,8 @@ async function getRun() {
 //getOneRun function
 async function getOneRun(getOne_req) {
     try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
 
         const query = { email: getOne_req.email };
         const options = { projection: { _id: 0} };
@@ -41,8 +41,8 @@ async function getOneRun(getOne_req) {
 //getDetailCard function
 async function getDetailCardRun(get_id) {
     try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
         
         const query = { email: get_id.email };
         const options = { projection: { _id: 0, detail_card: 1}, sort: {id_card: 1} };
@@ -58,8 +58,8 @@ async function getDetailCardRun(get_id) {
 //getStyleCard function
 async function getStyleCardRun(get_req) {
     try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
 
         const query = { email: get_req.email}
         const options = { projection: { _id: 0, style_card: 1} }
@@ -72,27 +72,27 @@ async function getStyleCardRun(get_req) {
     }
 }
 
-async function login(check_id) {
-    try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
-        const result = await col.findOne({ email: get_req.email});
+// async function login(check_id) {
+//     try {
+//         const database = client.db("mBizcard");
+//         const col = database.collection("poc_mbizcard");
+//         const result = await col.findOne({ email: get_req.email});
 
-        if (check_id.email === result) {
-            console.log("checked")
-        } else {
-            console.log("NO")
-        }
-    } catch(error) {
-        error.message
-    }
-}
+//         if (check_id.email === result) {
+//             console.log("checked")
+//         } else {
+//             console.log("NO")
+//         }
+//     } catch(error) {
+//         error.message
+//     }
+// }
 
 //insert function
 async function insertRun(insert_req) {
     try {
-      const database = client.db("Test_Collection_Fah");
-      const col = database.collection("Fah_DB");
+      const database = client.db("mBizcard");
+      const col = database.collection("poc_mbizcard");
 
       const docs =  {
         id: insert_req.id,
@@ -121,8 +121,8 @@ async function insertRun(insert_req) {
 //insertDetailCard function
 async function insertDetailCardRun(insert_DC) {
     try {
-      const database = client.db("Test_Collection_Fah");
-      const col = database.collection("Fah_DB");
+      const database = client.db("mBizcard");
+      const col = database.collection("poc_mbizcard");
 
       const ref = { email: insert_DC.email }
 
@@ -137,8 +137,8 @@ async function insertDetailCardRun(insert_DC) {
 //insertStyleCard function
 async function insertStyleCardRun(insert_SC) {
     try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
 
         const ref = { email: insert_SC.email}
 
@@ -171,7 +171,7 @@ async function updateRun(input_req) {
             dict["title"] = input_req.title
         }
 
-        const database = client.db("Test_Collection_Fah");
+        const database = client.db("mBizcard");
         const col = database.collection("Fah_DB");
 
         const filter = { email: input_req.email};
@@ -189,8 +189,8 @@ async function updateRun(input_req) {
 //delete function
 async function deleteRun(delete_req) {
     try {
-        const database = client.db("Test_Collection_Fah");
-        const col = database.collection("Fah_DB");
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
 
         const query = { email: delete_req.email };
 
@@ -202,7 +202,7 @@ async function deleteRun(delete_req) {
     }
 } 
 
-module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun, login }
+module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun }
 
 
 //dataset

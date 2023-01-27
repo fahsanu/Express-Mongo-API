@@ -1,16 +1,24 @@
 const express = require('express');
-const { getRun, insertRun, updateRun, deleteRun, getOneRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun, login } = require('./app');
+const { getRun, insertRun, updateRun, deleteRun, getOneRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun } = require('./app');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 
-
+//check API connected
+router.get('/check', async (req, res) => {
+    try{
+        res.send('API outed')
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 //getRun
 router.get('/get', async (req, res) => {
-      try {
+      try{
         const output = await getRun()
         res.send(output)
       }
@@ -30,15 +38,16 @@ router.get('/getOne', async(req, res) => {
     }
 })
 
-router.get('/login', async(req,res) => {
-    try{
-        const output = await login(req.body)
-        res.send(output)
-    }
-    catch(error){
-        res.status(500).json({mesaage: error.message})
-    }
-})
+
+// router.get('/login', async(req,res) => {
+//     try{
+//         const output = await login(req.body)
+//         res.send(output)
+//     }
+//     catch(error){
+//         res.status(500).json({mesaage: error.message})
+//     }
+// })
 
 //getDetailCardRun
 router.get('/getOne/detailCard', async(req, res) => {
