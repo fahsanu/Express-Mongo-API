@@ -5,6 +5,15 @@ var path = require('path')
 const app = express()
 app.use(cors())
 
+app.use(function(req, res, next){
+  res.setTimeout(5000, function(){
+      console.log('Request has timed out.');
+          res.send(408);
+      });
+
+  next();
+});
+
 app.use((req, res, next) => {
   
     const auth = {login: 'admin', password: 'password'}
@@ -26,6 +35,6 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-app.listen(8000, '0.0.0.0', () => {
-    console.log(`Server started at ${8000}`)
+app.listen(8500, '0.0.0.0', () => {
+    console.log(`Server started at ${8500}`)
 });

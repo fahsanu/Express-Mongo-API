@@ -29,7 +29,7 @@ async function getOneRun(getOne_req) {
 
         const query = { email: getOne_req.email };
         const options = { projection: { _id: 0} };
-         
+        
         const result = await col.findOne(query, options);
 
         return result
@@ -65,28 +65,13 @@ async function getStyleCardRun(get_req) {
         const options = { projection: { _id: 0, style_card: 1} }
 
         const result = await col.findOne(query, options);
+        console.log(result)
 
         return result
     } catch(error) {
         error.message
     }
 }
-
-// async function login(check_id) {
-//     try {
-//         const database = client.db("mBizcard");
-//         const col = database.collection("poc_mbizcard");
-//         const result = await col.findOne({ email: get_req.email});
-
-//         if (check_id.email === result) {
-//             console.log("checked")
-//         } else {
-//             console.log("NO")
-//         }
-//     } catch(error) {
-//         error.message
-//     }
-// }
 
 //insert function
 async function insertRun(insert_req) {
@@ -101,9 +86,12 @@ async function insertRun(insert_req) {
         name_first: insert_req.name_first,
         name_mid: insert_req.name_mid,
         name_last: insert_req.name_last,
-        img_url: insert_req.img_url,
-        img_base64: insert_req.img_base64,
+        img_base64: [],
         title: insert_req.title,
+        department: insert_req.department,
+        phonenumber: insert_req.phonenumber,
+        bio: insert_req.bio,
+        company: insert_req.company,
         detail_card: [],
         style_card: insert_req.style_card
 
@@ -117,6 +105,45 @@ async function insertRun(insert_req) {
         error.message
     }
   } 
+
+
+//login function
+async function login(check_id) {
+    try {
+        const database = client.db("mBizcard");
+        const col = database.collection("poc_mbizcard");
+        const result = await col.findOne({ email: check_id.email});
+
+        if (result !== null) {
+            console.log("Founded")
+            return result
+        } else {
+            console.log("Not Founded")
+            const docs =  {
+                id: "",
+                email: insert_req.email,
+                name_full: "",
+                name_first: "",
+                name_mid: "",
+                name_last: "",
+                img_base64: [],
+                title: "",
+                department: "",
+                phonenumber: "",
+                bio: "",
+                company: "",
+                detail_card: [],
+                style_card: ""
+            } 
+              const options = { ordered: true };
+              const result = await col.insertOne(docs, options);
+              
+              return result
+        }
+    } catch(error) {
+        error.message
+    }
+}
 
 //insertDetailCard function
 async function insertDetailCardRun(insert_DC) {
@@ -150,6 +177,7 @@ async function insertStyleCardRun(insert_SC) {
     }
 }
 
+
 //update function
 async function updateRun(input_req) {
     try {
@@ -163,12 +191,18 @@ async function updateRun(input_req) {
             dict["name_mid"] = input_req.name_mid
         } if (typeof input_req.name_last !== "undefined"){
             dict["name_last"] = input_req.name_last
-        } if (typeof input_req.img_url !== "undefined"){
-            dict["img_url"] = input_req.img_url
         } if (typeof input_req.img_base64 !== "undefined"){
             dict["img_base64"] = input_req.img_base64
         } if (typeof input_req.title !== "undefined"){
             dict["title"] = input_req.title
+        } if (typeof input_req.department !== "undefined"){
+            dict["department"] = input_req.department
+        }if (typeof input_req.phonenumber !== "undefined"){
+            dict["phonenumber"] = input_req.phonenumber
+        } if (typeof input_req.bio !== "undefined"){
+            dict["bio"] = input_req.bio
+        } if (typeof input_req.company !== "undefined"){
+            dict["company"] = input_req.company
         }
 
         const database = client.db("mBizcard");
@@ -202,7 +236,7 @@ async function deleteRun(delete_req) {
     }
 } 
 
-module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun }
+module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun, login }
 
 
 //dataset
@@ -218,6 +252,7 @@ const datatest = [
         img_base64   : [],
         title: '',
         department: '',
+        phonenumber: '',
         bio: '',
         company: '',
         detail_card: [
