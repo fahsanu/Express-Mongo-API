@@ -4,8 +4,8 @@ require('dotenv').config();
 const { MongoClient } = require("mongodb");
 const db = process.env.DATABASE_URL;
 const client = new MongoClient(db);
-const database = client.db("mBizcard");
-const col = database.collection("poc_mbizcard");
+const database = client.db("vibecards");
+const col = database.collection("vibecards_dev");
 
 //getRun function
 async function getRun() {
