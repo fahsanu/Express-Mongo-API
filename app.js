@@ -4,12 +4,15 @@ require('dotenv').config();
 const { MongoClient } = require("mongodb");
 const db = process.env.DATABASE_URL;
 const client = new MongoClient(db);
-let database = client.db("vibecards");
-let col = database.collection("vibecards_dev");
+const database = client.db("vibecards");
+const col = database.collection("vibecards_dev");
 
 //getRun function
 async function getRun() {
     try {
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
+
         const query = {};
         const options = { projection: { _id: 0 }, sort: { id: 1}};
         const result = await col.find(query, options).toArray()
@@ -23,6 +26,9 @@ async function getRun() {
 //getOneRun function
 async function getOneRun(getOne_req) {
     try {
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
+
         const query = { email: getOne_req.email };
         const options = { projection: { _id: 0} };
         
@@ -37,6 +43,9 @@ async function getOneRun(getOne_req) {
 //getDetailCard function
 async function getDetailCardRun(get_id) {
     try {
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
+
         const query = { email: get_id.email };
         const options = { projection: { _id: 0, detail_card: 1}, sort: {id_card: 1} };
          
@@ -51,6 +60,9 @@ async function getDetailCardRun(get_id) {
 //getStyleCard function
 async function getStyleCardRun(get_req) {
     try {
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
+
         const query = { email: get_req.email}
         const options = { projection: { _id: 0, style_card: 1} }
 
@@ -100,8 +112,9 @@ async function insertRun(insert_req) {
 //login function
 async function login(check_id) {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
+
         const result = await col.findOne({ email: check_id.email});
 
         if (result !== null) {
@@ -138,14 +151,14 @@ async function login(check_id) {
 //insertDetailCard function
 async function insertDetailCardRun(insert_DC) {
     try {
-      const database = client.db("mBizcard");
-      const col = database.collection("poc_mbizcard");
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
 
-      const ref = { email: insert_DC.email }
+        const ref = { email: insert_DC.email }
 
-      const result = await col.updateMany(ref, { $set: { detail_card: insert_DC.detail_card }});
-      
-      return result
+        const result = await col.updateMany(ref, { $set: { detail_card: insert_DC.detail_card }});
+        
+        return result
     } catch(error) {
         error.message
     }
@@ -154,8 +167,8 @@ async function insertDetailCardRun(insert_DC) {
 //insertStyleCard function
 async function insertStyleCardRun(insert_SC) {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
 
         const ref = { email: insert_SC.email}
 
@@ -166,7 +179,6 @@ async function insertStyleCardRun(insert_SC) {
         error.message
     }
 }
-
 
 //update function
 async function updateRun(input_req) {
@@ -195,8 +207,8 @@ async function updateRun(input_req) {
             dict["company"] = input_req.company
         }
 
-        const database = client.db("mBizcard");
-        const col = database.collection("Fah_DB");
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
 
         const filter = { email: input_req.email};
         const options = { upsert: true };
@@ -213,8 +225,8 @@ async function updateRun(input_req) {
 //delete function
 async function deleteRun(delete_req) {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
+        const database = client.db("vibecards");
+        const col = database.collection("vibecards_dev");
 
         const query = { email: delete_req.email };
 
@@ -227,45 +239,3 @@ async function deleteRun(delete_req) {
 } 
 
 module.exports = { getRun, getOneRun, insertRun, updateRun, deleteRun, getDetailCardRun, insertDetailCardRun, getStyleCardRun, insertStyleCardRun, login }
-
-
-//dataset
-//change img setting to array
-const datatest = [
-    {
-        id: '', //string gmail123456
-        email: 'boo1@gmail.com',
-        name_full: '',
-        name_first: '',
-        name_mid: '',
-        name_last: '',
-        img_base64   : [],
-        title: '',
-        department: '',
-        phonenumber: '',
-        bio: '',
-        company: '',
-        detail_card: [
-            {
-                id_card:'',
-                type_card: 'url',
-                title_card: '',
-                url_card: '',
-                status_active: ""
-            },
-            {
-                id_card:'',
-                type_card: 'url',
-                title_card: '',
-                url_card: '',
-                status_active: ""
-            },
-        ],
-        style_card: {
-            color_card: '',
-            color_bg: '',
-            color_text: '',
-            fort_text: '',
-        }
-    },
-]
