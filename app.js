@@ -4,8 +4,8 @@ require('dotenv').config();
 const { MongoClient } = require("mongodb");
 const db = process.env.DATABASE_URL;
 const client = new MongoClient(db);
-const database = client.db("vibecards");
-const col = database.collection("vibecards_dev");
+let database = client.db("vibecards");
+let col = database.collection("vibecards_dev");
 
 //getRun function
 async function getRun() {
@@ -66,8 +66,8 @@ async function getStyleCardRun(get_req) {
 //insert function
 async function insertRun(insert_req) {
     try {
-      const database = client.db("mBizcard");
-      const col = database.collection("poc_mbizcard");
+      const database = client.db("vibecards");
+      const col = database.collection("vibecards_dev");
 
       const docs =  {
         id: insert_req.id,
