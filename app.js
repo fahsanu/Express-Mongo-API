@@ -4,13 +4,12 @@ require('dotenv').config();
 const { MongoClient } = require("mongodb");
 const db = process.env.DATABASE_URL;
 const client = new MongoClient(db);
+const database = client.db("mBizcard");
+const col = database.collection("poc_mbizcard");
 
 //getRun function
 async function getRun() {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
-
         const query = {};
         const options = { projection: { _id: 0 }, sort: { id: 1}};
         const result = await col.find(query, options).toArray()
@@ -24,9 +23,6 @@ async function getRun() {
 //getOneRun function
 async function getOneRun(getOne_req) {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
-
         const query = { email: getOne_req.email };
         const options = { projection: { _id: 0} };
         
@@ -41,9 +37,6 @@ async function getOneRun(getOne_req) {
 //getDetailCard function
 async function getDetailCardRun(get_id) {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
-        
         const query = { email: get_id.email };
         const options = { projection: { _id: 0, detail_card: 1}, sort: {id_card: 1} };
          
@@ -58,9 +51,6 @@ async function getDetailCardRun(get_id) {
 //getStyleCard function
 async function getStyleCardRun(get_req) {
     try {
-        const database = client.db("mBizcard");
-        const col = database.collection("poc_mbizcard");
-
         const query = { email: get_req.email}
         const options = { projection: { _id: 0, style_card: 1} }
 
@@ -119,9 +109,10 @@ async function login(check_id) {
             return result
         } else {
             console.log("Not Founded")
+            if (check_id?.email || "") {
             const docs =  {
                 id: "",
-                email: insert_req.email,
+                email: check_id?.email || "",
                 name_full: "",
                 name_first: "",
                 name_mid: "",
@@ -137,9 +128,8 @@ async function login(check_id) {
             } 
               const options = { ordered: true };
               const result = await col.insertOne(docs, options);
-              
-              return result
-        }
+              return result 
+            } else { }}
     } catch(error) {
         error.message
     }
