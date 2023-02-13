@@ -85,7 +85,7 @@ async function login(login_req) {
                             card_theme_style: "default",
                             card_color: "",
                             company_info: true,
-                            img_base64: [],
+                            img_base64: "",
                             detail_card: []
                         }
                     ]

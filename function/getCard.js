@@ -16,7 +16,7 @@ async function getAll() {
         const col = database.collection(col_env);
 
         const query = {};
-        const options = { projection: { _id: 0 }, sort: { id: 1 } };
+        const options = { projection: { _id: 0 , card_all: { $elemMatch: { solf_delete: false }}}, sort: { id: 1 } };
         const result = await col.find(query, options).toArray()
 
         return result
@@ -36,11 +36,11 @@ async function getAllCard(getAll_req) {
         const col = database.collection(col_env);
 
         const query = { id: getAll_req.id };
-        const options = { projection: { _id: 0, card_all: 1 } };
+        const options = { projection: { _id: 0, card_all: { $elemMatch: { solf_delete: false }}  } };
 
         const result = await col.findOne(query, options);
 
-        return result
+        return { status: true, result: result }
     } catch (error) {
         error.message
     }
@@ -59,12 +59,12 @@ async function getPerCard(getOne_req) {
         const database = client.db(database_env);
         const col = database.collection(col_env);
         
-        const query2 = { "card_all.id_card" : getOne_req.id_card };
-        const options2 = { projection: { _id: 0 , card_all: { $elemMatch: { id_card: getOne_req.id_card , solf_delete: false }} } };
+        const query = { "card_all.id_card" : getOne_req.id_card };
+        const options = { projection: { _id: 0 , card_all: { $elemMatch: { id_card: getOne_req.id_card , solf_delete: false }} } };
 
-        const result2 = await col.findOne(query2, options2);
+        const result = await col.findOne(query, options);
 
-        return { status: true, result: result2 }
+        return { status: true, result: result }
     } catch (error) {
         return { status: false, result: {} }
     }

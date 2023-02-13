@@ -45,7 +45,7 @@
                 "card_theme_style": "1",
                 "card_color" : "",
                 "company_info": true,
-                "img_base64": [""],
+                "img_base64": "",
                 "detail_card": [
                     {
                         "id_button": "linkedin6143",
@@ -74,4 +74,3 @@
         ]
     }
 ]
-

@@ -2,8 +2,8 @@ const express = require('express');
 const {  login } = require('../function/login');
 const { setActiveCard } = require('../function/setActive');
 const { getAll, getAllCard, getPerCard } = require("../function/getCard")
-const { createNewCard, deleteCard } = require("../function/editCard")
-const { saveProfile } = require("../function/editProfile")
+const { updatePicCard, createNewCard, deleteCard } = require("../function/editCard")
+const { updatePicProfile, saveProfile } = require("../function/editProfile")
 const router = express.Router();
 const bodyParser = require('body-parser');
 
@@ -76,6 +76,17 @@ router.put('/api/v1/setactive', async(req, res) => {
     }
 })
 
+//updatePicCard
+router.put('/api/v1/updatepiccard', async (req, res) => {
+    try{
+        const output = await updatePicCard(req.body)
+        res.send(output)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+  })
+
 //createNewCard
 router.post('/api/v1/createnewcard', async(req,res) => {
     try{
@@ -88,7 +99,7 @@ router.post('/api/v1/createnewcard', async(req,res) => {
 })
 
 //deleteCard
-router.delete('/api/vi/deletecard', async (req, res) => {
+router.put('/api/vi/deletecard', async (req, res) => {
     try{
         const output = await deleteCard(req.body)
         res.send(output)
@@ -98,8 +109,16 @@ router.delete('/api/vi/deletecard', async (req, res) => {
     }
 })
 
-
-
+//updatePicProfile
+router.put('/api/v1/updatepicprofile', async (req, res) => {
+    try{
+        const output = await updatePicProfile(req.body)
+        res.send(output)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+  })
 
 
 
@@ -118,16 +137,7 @@ router.post('/insert', async(req, res) => {
 
 
 
-//updateRun
-router.put('/update', async (req, res) => {
-    try{
-        const output = await updateRun(req.body)
-        res.send(output)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-  })
+
 
 
 

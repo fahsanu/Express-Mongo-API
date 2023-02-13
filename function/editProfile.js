@@ -7,9 +7,20 @@ const client = new MongoClient(db);
 const database_env = process.env.DATABASE;
 const col_env = process.env.COL;
 
-// async function updatePicProfile {
-//     return await 
-// }
+//updatePicProfile function
+async function updatePicProfile(pic_req) {
+    try {
+        const database = client.db(database_env);
+        const col = database.collection(col_env);
+
+        const ref = { id: pic_req.id };
+        const result = await col.updateOne(ref, { $set: { img_base64: pic_req.img_base64} })
+
+        return {status: true, result: result}
+    } catch (error) {
+        error.message
+    }
+}
 
 //saveProfile function
 async function saveProfile(input_req) {
@@ -51,4 +62,4 @@ async function saveProfile(input_req) {
         error.message
     }
 }
-module.exports = { saveProfile };
+module.exports = { updatePicProfile, saveProfile };
