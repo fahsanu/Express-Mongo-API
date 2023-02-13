@@ -1,5 +1,5 @@
 const express = require('express')
-const routes = require('./routes')
+const routes = require('./routes/routes')
 var cors = require('cors')
 var path = require('path')
 // var privateKey = fs.readFileSync( 'privatekey.pem' );

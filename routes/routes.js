@@ -1,9 +1,9 @@
 const express = require('express');
-const {  login } = require('./function/login');
-const { setActiveCard } = require('./function/setActive');
-const { getAll, getAllCard, getPerCard } = require("./function/getCard")
-const { createNewCard, deleteCard } = require("./function/editCard")
-const { saveProfile } = require("./function/editProfile")
+const {  login } = require('../function/login');
+const { setActiveCard } = require('../function/setActive');
+const { getAll, getAllCard, getPerCard } = require("../function/getCard")
+const { createNewCard, deleteCard } = require("../function/editCard")
+const { saveProfile } = require("../function/editProfile")
 const router = express.Router();
 const bodyParser = require('body-parser');
 
