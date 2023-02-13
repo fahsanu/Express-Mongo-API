@@ -1,6 +1,6 @@
 [
     {
-        "id": "",
+        "id": "1444",
         "name_full_en": "thongrit thongtom",
         "name_first_en": "thongrit",
         "name_mid_en": "",
@@ -9,6 +9,8 @@
         "name_first_th": "ธงฤทธิ์",
         "name_mid_th": "",
         "name_last_th": "ทองถม",
+        "nickname_th":"",
+        "nickname_en":"",
         "img_url": "",
         "img_base64": "",
         "email": "thongrit@mfec.co.th",
@@ -22,84 +24,54 @@
         "card_all": [
             {
                 "id_card": "1",
+                "type_card": "work",
+                "name_full_en": "thongrit thongtom",
+                "name_first_en": "thongrit",
+                "name_mid_en": "",
+                "name_last_en": "thongtom",
+                "name_full_th": "ธงฤทธิ์  ทองถม",
+                "name_first_th": "ธงฤทธิ์",
+                "name_mid_th": "",
+                "name_last_th": "ทองถม",
+                "nickname_th":"",
+                "nickname_en":"",
+                "brith_day" : "",
+                "email": "thongrit@mfec.co.th",
+                "mobilePhone": "089-770-8574",
+                "department": "Enterprise Solutions",
+                "division": "Business Service Management (BSM)",
+                "position": "Full Stack Developer",
                 "card_active": true,
-                "card_theam_style": "",
-                "img_base64": [],
+                "card_theme_style": "1",
+                "card_color" : "",
+                "company_info": true,
+                "img_base64": [""],
                 "detail_card": [
+                    {
+                        "id_button": "linkedin6143",
+                        "type_button": "title",
+                        "title_button": "Contact Information",
+                        "url_button": null,
+                        "statusactive": true
+                    },
                     {
                         "id_button": "linkedin6143",
                         "type_button": "linkedin",
                         "title_button": "linkedin booboo",
-                        "url_button" : "https://www.linkedin.com",
+                        "url_button": "https://www.linkedin.com",
                         "statusactive": true
                     },
                     {
                         "id_button": "line6347",
                         "type_button": "line",
                         "title_button": "บูบู้ว",
-                        "url_button" : "https://line.me/th/",
-                        "statusactive": true
-                    }
-                ]
-            },
-            {
-                "id_card": "2",
-                "card_active": true,
-                "card_style": "",
-                "img_base64": [],
-                "detail_card": [
-                    {
-                        "id_button": "phone6647",
-                        "type_button": "phone",
-                        "title_button": "home",
-                        "url_button" : "043-344188",
-                        "statusactive": true
-                    },
-                    {
-                        "id_button": "email6647",
-                        "type_button": "email",
-                        "title_button": "email booo",
-                        "url_button" : "bambam_conan1@live.com",
-                        "statusactive": true
-                    },
-                    {
-                        "id_button": "line6647",
-                        "type_button": "line",
-                        "title_button": "thongrit",
-                        "url_button" : "https://line.me/th/",
-                        "statusactive": true
-                    }
-                ]
-            },
-            {
-                "id_card": "3",
-                "card_active": true,
-                "card_style": "",
-                "img_base64": [],
-                "detail_card": [
-                    {
-                        "id_button": "phone6647",
-                        "type_button": "phone",
-                        "title_button": "home",
-                        "url_button" : "043-344188",
-                        "statusactive": true
-                    },
-                    {
-                        "id_button": "email6647",
-                        "type_button": "email",
-                        "title_button": "email booo",
-                        "url_button" : "bambam_conan1@live.com",
-                        "statusactive": true
-                    },
-                    {
-                        "id_button": "line6647",
-                        "type_button": "line",
-                        "title_button": "thongrit",
-                        "url_button" : "https://line.me/th/",
+                        "url_button": "https://line.me/th/",
                         "statusactive": true
                     }
                 ]
             }
+            
         ]
     }
 ]
+

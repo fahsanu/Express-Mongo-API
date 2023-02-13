@@ -2,6 +2,9 @@ const express = require('express')
 const routes = require('./routes')
 var cors = require('cors')
 var path = require('path')
+// var privateKey = fs.readFileSync( 'privatekey.pem' );
+// var certificate = fs.readFileSync( 'certificate.pem' );
+
 const app = express()
 app.use(cors())
 
@@ -35,6 +38,10 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
+// https.createServer({
+//     key: privateKey,
+//     cert: certificate
+// }, app)
 app.listen(8500, '0.0.0.0', () => {
     console.log(`Server started at ${8500}`)
 });
