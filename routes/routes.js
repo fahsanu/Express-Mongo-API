@@ -1,6 +1,5 @@
 const express = require('express');
 const {  login } = require('../function/login');
-const { setActiveCard } = require('../function/setActive');
 const { getAll, getAllCard, getPerCard } = require("../function/getCard")
 const { updatePicCard, createNewCard, deleteCard, changeUuid } = require("../function/editCard")
 const { updatePicProfile, saveProfile } = require("../function/editProfile")
@@ -65,17 +64,6 @@ router.post('/api/v1/login', async(req,res) => {
     }
 })
 
-//setActiveCard
-router.put('/api/v1/setactive', async(req, res) => {
-    try{
-        const output = await setActiveCard(req.body)
-        res.send(output)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-})
-
 //updatePicCard
 router.put('/api/v1/updatepiccard', async (req, res) => {
     try{
@@ -130,26 +118,16 @@ router.put('/api/v1/updatepicprofile', async (req, res) => {
     }
   })
 
-
-
-//insertRun
-router.post('/insert', async(req, res) => {
+//saveProfile
+router.post('/api/v1/save_profile', async(req, res) => {
     try{
-        const output = await insertRun(req.body)
+        const output = await saveProfile(req.body)
         res.send(output)
     }
     catch(error){
         res.status(500).json({message: error.message})
     }
 })
-
-
-
-
-
-
-
-
 
 
 module.exports = router;

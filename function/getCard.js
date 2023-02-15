@@ -70,4 +70,14 @@ async function getPerCard(getOne_req) {
     }
 }
 
+async function getFriendList(friend_req) {
+    try {
+        const database = client.db(database_env);
+        const col = database.collection(col_env);
+    }
+    catch(error) {
+        return { status: false, result: "get friend list failed"}
+    }
+}
+
 module.exports = { getAll, getAllCard, getPerCard };

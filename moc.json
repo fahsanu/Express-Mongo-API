@@ -14,6 +14,7 @@
         "img_url": "",
         "img_base64": "",
         "email": "thongrit@mfec.co.th",
+        "provider": "mfec",
         "department": "Enterprise Solutions",
         "division": "BSM",
         "position": "Full Stack Developer",
@@ -27,7 +28,6 @@
                 "id_card": ""
             }
         ],
-        "active_id_card": "1",
         "card_all": [
             {
                 "id_card": "1",
@@ -81,5 +81,3 @@
         ]
     }
 ]
-
-
