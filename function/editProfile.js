@@ -61,11 +61,11 @@ async function saveProfile(input_req) {
         } 
         
         if (typeof input_req.nickname_th !== "undefined" && input_req.nickname_th !== "") {
-            dict["nickcame_th"] = input_req.nickcame_th
+            dict["nickname_th"] = input_req.nickcame_th
         } 
         
         if (typeof input_req.nickname_en !== "undefined" && input_req.nickname_en !== "") {
-            dict["nickcame_en"] = input_req.nickcame_en
+            dict["nickname_en"] = input_req.nickcame_en
         } 
         
         if (typeof input_req.img_url !== "undefined"  && input_req.img_url !== "") {

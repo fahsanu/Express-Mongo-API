@@ -1,7 +1,7 @@
 const express = require('express');
 const {  login } = require('../function/login');
 const { getAll, getAllCard, getPerCard } = require("../function/getCard")
-const { updatePicCard, createNewCard, deleteCard, changeUuid } = require("../function/editCard")
+const { updatePicCard, createNewCard, saveCard, deleteCard, changeUuid } = require("../function/editCard")
 const { updatePicProfile, saveProfile } = require("../function/editProfile")
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -79,6 +79,17 @@ router.put('/api/v1/updatepiccard', async (req, res) => {
 router.post('/api/v1/createnewcard', async(req,res) => {
     try{
         const output = await createNewCard(req.body)
+        res.send(output)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+//saveCard
+router.post('/api/v1/savecard', async(req,res) => {
+    try{
+        const output = await saveCard(req.body)
         res.send(output)
     }
     catch(error){

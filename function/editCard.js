@@ -76,19 +76,111 @@ async function createNewCard(card_req) {
     }
 }
 
-//saveCard function
-async function saveCard(save_req) {
+//saveProfile function
+async function saveCard(input_req) {
     try {
+        var dict = {}
+
+        if (typeof input_req.type_card !== "undefined" && input_req.type_card !== "") {
+            dict["card_all.$.type_card"] = input_req.type_card
+        } 
+
+        if (typeof input_req.name_full_en !== "undefined" && input_req.name_full_en !== "") {
+            dict["card_all.$.name_full_en"] = input_req.name_full_en
+        } 
+        
+        if (typeof input_req.name_first_en !== "undefined"  && input_req.name_first_en !== "") {
+            dict["card_all.$.name_first_en"] = input_req.name_first_en
+        } 
+        
+        if (typeof input_req.name_mid_en !== "undefined"  && input_req.name_mid_en !== "") {
+            dict["card_all.$.name_mid_en"] = input_req.name_mid_en
+        } 
+        
+        if (typeof input_req.name_last_en !== "undefined"  && input_req.name_last_en !== "") {
+            dict["card_all.$.name_last_en"] = input_req.name_last_en
+        } 
+        
+        if (typeof input_req.name_full_th !== "undefined" && input_req.name_full_th !== "") {
+            dict["card_all.$.name_full_th"] = input_req.name_full_th
+        } 
+        
+        if (typeof input_req.name_first_th !== "undefined"  && input_req.name_fisrt_th !== "") {
+            dict["card_all.$.name_first_th"] = input_req.name_first_th
+        } 
+        
+        if (typeof input_req.name_mid_th !== "undefined"  && input_req.name_mid_th !== "") {
+            dict["card_all.$.name_mid_th"] = input_req.name_mid_th
+        } 
+        
+        if (typeof input_req.name_last_th !== "undefined"  && input_req.name_last_th !== "") {
+            dict["card_all.$.name_last_th"] = input_req.name_last_th
+        } 
+        
+        if (typeof input_req.nickname_th !== "undefined" && input_req.nickname_th !== "") {
+            dict["card_all.$.nickname_th"] = input_req.nickcame_th
+        } 
+        
+        if (typeof input_req.nickname_en !== "undefined" && input_req.nickname_en !== "") {
+            dict["card_all.$.nickname_en"] = input_req.nickcame_en
+        } 
+
+        if (typeof input_req.brith_day !== "undefined"  && input_req.brith_day !== "") {
+            dict["card_all.$.brith_day"] = input_req.brith_day
+        }
+        
+        if (typeof input_req.img_base64 !== "undefined"  && input_req.img_base64 !== "") {
+            dict["card_all.$.img_base64"] = input_req.img_base64
+        } 
+        
+        if (typeof input_req.email !== "undefined"  && input_req.email !== "") {
+            dict["card_all.$.email"] = input_req.email
+        } 
+        
+        if (typeof input_req.department !== "undefined"  && input_req.department !== "") {
+            dict["card_all.$.department"] = input_req.department
+        } 
+        
+        if (typeof input_req.division !== "undefined"  && input_req.division !== "") {
+            dict["card_all.$.division"] = input_req.division
+        } 
+        
+        if (typeof input_req.position !== "undefined"  && input_req.position !== "") {
+            dict["card_all.$.position"] = input_req.position
+        } 
+
+        if (typeof input_req.mobilePhone !== "undefined"  && input_req.mobilePhone !== "") {
+            dict["card_all.$.mobilePhone"] = input_req.mobilePhone
+        }
+
+        if (typeof input_req.card_theme_style !== "undefined"  && input_req.card_theme_style !== "") {
+            dict["card_all.$.card_theme_style"] = input_req.card_theme_style
+        }
+
+        if (typeof input_req.card_color !== "undefined"  && input_req.card_color !== "") {
+            dict["card_all.$.card_color"] = input_req.card_color
+        }
+        
+        dict["card_all.$.card_active"] = true
+        dict["card_all.$.solf_delete"] = false
+        dict["card_all.$.company_info"] = true
+        
+
         const database = client.db(database_env);
         const col = database.collection(col_env);
 
-        return {status: true, result: result}
+        const filter = { "card_all.id_card" : input_req.id_card };
+        const options = { upsert: true };
+        const updateDoc = { $set: dict };
+        const result = await col.updateMany(filter, updateDoc, options);
 
+        return {status: true, result: result}
     } catch (error) {
         error.message
-        return { status: false, result: "save failed"}
+        return {status: false, result: "save failed"}
     }
 }
+
 
 //deleteCard function
 //change state of solf_delete
@@ -128,4 +220,4 @@ async function changeUuid(change_req) {
     }
 }
 
-module.exports = { updatePicCard, createNewCard, deleteCard, changeUuid };
+module.exports = { updatePicCard, createNewCard, saveCard, deleteCard, changeUuid };

@@ -49,6 +49,7 @@
                 "division": "Business Service Management (BSM)",
                 "position": "Full Stack Developer",
                 "card_active": true,
+                "solf_delete": false,
                 "card_theme_style": "1",
                 "card_color" : "",
                 "company_info": true,
@@ -81,3 +82,4 @@
         ]
     }
 ]
+
