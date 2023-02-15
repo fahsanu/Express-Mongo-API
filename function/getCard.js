@@ -21,7 +21,7 @@ async function getAll() {
 
         return result
     } catch (error) {
-        error.message
+        return { status: false, return: {}}
     }
 }
 
@@ -42,7 +42,7 @@ async function getAllCard(getAll_req) {
 
         return { status: true, result: result }
     } catch (error) {
-        error.message
+        return { status: false, result: {}}
     }
 }
 

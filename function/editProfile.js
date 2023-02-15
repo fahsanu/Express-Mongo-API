@@ -19,6 +19,7 @@ async function updatePicProfile(pic_req) {
         return {status: true, result: result}
     } catch (error) {
         error.message
+        return { status: false, result: "update failed"}
     }
 }
 
@@ -49,17 +50,19 @@ async function saveProfile(input_req) {
             dict["company"] = input_req.company
         }
 
-        const database = client.db("vibecards");
-        const col = database.collection("vibecards_dev");
+        const database = client.db(database_env);
+        const col = database.collection(col_env);
 
         const filter = { email: input_req.email };
         const options = { upsert: true };
         const updateDoc = { $set: dict };
         const result = await col.updateOne(filter, updateDoc, options);
 
-        return result
+        return {status: true, result: result}
     } catch (error) {
         error.message
+        return {status: false, result: "save failed"}
     }
 }
+
 module.exports = { updatePicProfile, saveProfile };

@@ -9,6 +9,11 @@ const database_env = process.env.DATABASE;
 const col_env = process.env.COL;
 
 //updatePicCard function
+//{ 
+//     id_card: "", 
+//     img_base64 = ""
+// }
+
 async function updatePicCard(pic_req) {
     try {
         const database = client.db(database_env);
@@ -22,11 +27,12 @@ async function updatePicCard(pic_req) {
         return {status: true, result: result}
     } catch (error) {
         error.message
-        return {status: false, result: result}
+        return {status: false, result: "update failed"}
     }
 }
 
 //createNewCard function
+//{ id_card: ""}
 async function createNewCard(card_req) {
     try {
         const database = client.db(database_env);
@@ -66,6 +72,7 @@ async function createNewCard(card_req) {
         return result
     } catch (error) {
         error.message
+        return {status: false, result: "create failed"}
     }
 }
 
@@ -75,10 +82,11 @@ async function saveCard(save_req) {
         const database = client.db(database_env);
         const col = database.collection(col_env);
 
-        return result
+        return {status: true, result: result}
 
     } catch (error) {
         error.message
+        return { status: false, result: "save failed"}
     }
 }
 
@@ -97,7 +105,27 @@ async function deleteCard(delete_req) {
         return { status: true, result: result }
     } catch (error) {
         error.message
+        return {status: false, result: "delete failed"}
     }
 }
 
-module.exports = { updatePicCard, createNewCard, deleteCard };
+//changeUUid function
+//{ id_card: ""}
+async function changeUuid(change_req) {
+    try {
+        const database = client.db(database_env);
+        const col = database.collection(col_env);
+
+        const query = { "card_all.id_card": change_req.id_card }
+        let new_card_uuid = uuidv4();
+
+        const result = await col.updateOne(query, { $set: { "card_all.$.id_card" : new_card_uuid } });
+        
+        return { status: true, result: result}
+    } catch(error) {
+        error.message
+        return {status: false, result: "change uuid failed"}
+    }
+}
+
+module.exports = { updatePicCard, createNewCard, deleteCard, changeUuid };

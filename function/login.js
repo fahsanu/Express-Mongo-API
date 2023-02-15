@@ -34,7 +34,6 @@ async function login(login_req) {
             return { status: true, result: result }
         } else {
             console.log("Not Founded")
-
             if (login_req?.email || "") {
                 let main_uuid = uuidv4();
                 let card_uuid = uuidv4();
@@ -59,6 +58,7 @@ async function login(login_req) {
                     level: "",
                     employee: "",
                     workPhone: "",
+                    friend_list: [],
                     active_id_card: card_uuid,
                     card_all: [
                         {

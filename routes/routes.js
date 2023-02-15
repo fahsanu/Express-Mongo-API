@@ -2,7 +2,7 @@ const express = require('express');
 const {  login } = require('../function/login');
 const { setActiveCard } = require('../function/setActive');
 const { getAll, getAllCard, getPerCard } = require("../function/getCard")
-const { updatePicCard, createNewCard, deleteCard } = require("../function/editCard")
+const { updatePicCard, createNewCard, deleteCard, changeUuid } = require("../function/editCard")
 const { updatePicProfile, saveProfile } = require("../function/editProfile")
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -106,6 +106,16 @@ router.put('/api/vi/deletecard', async (req, res) => {
     }
     catch(error){
         res.status(500).json({message: error.message})
+    }
+})
+
+//changeUuidCard
+router.put('/api/v1/change_uuid', async (req, res) => {
+    try{
+        const output = await changeUuid(req.body)
+        res.send(output)
+    }catch(error){
+        res.status(500).json({mesaage: error.message})
     }
 })
 

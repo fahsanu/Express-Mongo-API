@@ -20,6 +20,13 @@
         "level": "",
         "employee": "04244",
         "workPhone": "085-0067559",
+        "friend_list": [
+            {
+                "id_card": ""
+            },{
+                "id_card": ""
+            }
+        ],
         "active_id_card": "1",
         "card_all": [
             {
@@ -74,3 +81,5 @@
         ]
     }
 ]
+
+
