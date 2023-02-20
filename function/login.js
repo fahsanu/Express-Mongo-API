@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 
-
 //connect to mongodb
 const { MongoClient } = require("mongodb");
 const db = process.env.DATABASE_URL;
@@ -11,14 +10,8 @@ const col_env = process.env.COL;
 
 //login function
 // {
-//     email: "",
-//     full_name: "",
-//     department: "",
-//     division: "",
-//     position:"",
-//     workPhone: ""
+//     "email": "",
 // }
-
 async function login(login_req) {
     try {
         if (login_req.email  === "") {
@@ -27,13 +20,13 @@ async function login(login_req) {
         const database = client.db(database_env);
         const col = database.collection(col_env);
 
+        const provider_splited = login_req.email.substring(login_req.email.indexOf("@") + 1, login_req.email.lastIndexOf("."));
+
         const result = await col.findOne({ email: login_req.email }, { projection: {_id: 0 }} );
 
         if (result !== null) {
-            console.log("Founded")
             return { status: true, result: result }
         } else {
-            console.log("Not Founded")
             if (login_req?.email || "") {
                 let main_uuid = uuidv4();
                 let card_uuid = uuidv4();
@@ -52,6 +45,7 @@ async function login(login_req) {
                     img_url: "",
                     img_base64: "",
                     email: login_req.email,
+                    provider: provider_splited,
                     department: "",
                     division: "",
                     position: "",
@@ -59,7 +53,7 @@ async function login(login_req) {
                     employee: "",
                     workPhone: "",
                     friend_list: [],
-                    active_id_card: card_uuid,
+                    set_active_card: card_uuid,
                     card_all: [
                         {
                             id_card: card_uuid,
@@ -94,12 +88,12 @@ async function login(login_req) {
                 await col.insertOne(docs, options);
                 const result_inserted = await col.findOne({ email: login_req.email },{ projection: {_id: 0 }});
 
-                return { status: true, result: result_inserted }
+                return { status: true, message: "success", result: result_inserted }
             } 
         }
     } catch (error) {
         error.message
-        return { status: false, result: "Error" }
+        return { status: false, message: "fail", result: {} }
     }
 }
 

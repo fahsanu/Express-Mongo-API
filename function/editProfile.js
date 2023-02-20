@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { v4: uuidv4 } = require('uuid');
 
 //connect to mongodb
 const { MongoClient } = require("mongodb");
@@ -8,6 +9,10 @@ const database_env = process.env.DATABASE;
 const col_env = process.env.COL;
 
 //updatePicProfile function
+// {
+//     "id_profile": "uuid1",
+//     "img_base64": "ddasd"
+// }
 async function updatePicProfile(pic_req) {
     try {
         const database = client.db(database_env);
@@ -16,10 +21,9 @@ async function updatePicProfile(pic_req) {
         const ref = { id: pic_req.id };
         const result = await col.updateOne(ref, { $set: { img_base64: pic_req.img_base64} })
 
-        return {status: true, result: result}
+        return {status: true, message: "success"}
     } catch (error) {
-        error.message
-        return { status: false, result: "update failed"}
+        return { status: false, message: "fail"}
     }
 }
 
@@ -68,18 +72,6 @@ async function saveProfile(input_req) {
             dict["nickname_en"] = input_req.nickcame_en
         } 
         
-        if (typeof input_req.img_url !== "undefined"  && input_req.img_url !== "") {
-            dict["img_url"] = input_req.img_url
-        } 
-        
-        if (typeof input_req.img_base64 !== "undefined"  && input_req.img_base64 !== "") {
-            dict["img_base64"] = input_req.img_base64
-        } 
-        
-        if (typeof input_req.email !== "undefined"  && input_req.email !== "") {
-            dict["email"] = input_req.email
-        } 
-        
         if (typeof input_req.department !== "undefined"  && input_req.department !== "") {
             dict["department"] = input_req.department
         } 
@@ -112,11 +104,31 @@ async function saveProfile(input_req) {
         const updateDoc = { $set: dict };
         const result = await col.updateOne(filter, updateDoc, options);
 
-        return {status: true, result: result}
+        return {status: true, message: "success"}
     } catch (error) {
-        error.message
-        return {status: false, result: "save failed"}
+        return {status: false, message: "fail"}
     }
 }
 
-module.exports = { updatePicProfile, saveProfile };
+//changeUudiProfile function
+// {
+//     id_profile: "uuid1"
+// }
+async function changeUuidProfile(change_req) {
+    try {
+        const database = client.db(database_env);
+        const col = database.collection(col_env);
+        let new_card_uuid_profile = uuidv4();
+
+        const query = { id: change_req.id }
+
+        const result = await col.updateOne(query, { $set: { id : new_card_uuid_profile } });
+        
+        return { status: true, message: "success", result: result}
+    } catch(error) {
+        error.message
+        return {status: false, message: "fail", result: {}}
+    }
+}
+
+module.exports = { updatePicProfile, saveProfile , changeUuidProfile};

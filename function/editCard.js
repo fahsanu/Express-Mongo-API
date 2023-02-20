@@ -9,30 +9,31 @@ const database_env = process.env.DATABASE;
 const col_env = process.env.COL;
 
 //updatePicCard function
-//{ 
-//     id_card: "", 
-//     img_base64 = ""
+// { 
+//     "id_profile": "",
+//     "id_card": "", 
+//     "img_base64": ""
 // }
-
 async function updatePicCard(pic_req) {
     try {
         const database = client.db(database_env);
         const col = database.collection(col_env);
 
-        const query = { "card_all.id_card" : pic_req.id_card };
-        // const options = { projection: { _id: 0 , card_all: { $elemMatch: { id_card: getOne_req.id_card , solf_delete: false }} } };
+        const query = { id: pic_req.id, "card_all.id_card" : pic_req.id_card };
 
         const result = await col.updateOne(query, { $set: { "card_all.$.img_base64": pic_req.img_base64} })
 
-        return {status: true, result: result}
+        return {status: true, message: "success"}
     } catch (error) {
         error.message
-        return {status: false, result: "update failed"}
+        return {status: false, message: "fail"}
     }
 }
 
 //createNewCard function
-//{ id_card: ""}
+// {
+//     "id_profile": ""
+// }
 async function createNewCard(card_req) {
     try {
         const database = client.db(database_env);
@@ -43,7 +44,7 @@ async function createNewCard(card_req) {
 
         const result = await col.updateOne(ref, { $push: { card_all: {
             id_card: card_uuid,
-            type_card: "",
+            type_card: card_req.type_card,
             name_full_en: "",
             name_first_en: "",
             name_mid_en: "",
@@ -69,10 +70,9 @@ async function createNewCard(card_req) {
             detail_card: []
         } } });
 
-        return result
+        return {status: true, message: "success"}
     } catch (error) {
-        error.message
-        return {status: false, result: "create failed"}
+        return {status: false, result: "fail"}
     }
 }
 
@@ -174,13 +174,31 @@ async function saveCard(input_req) {
         const updateDoc = { $set: dict };
         const result = await col.updateMany(filter, updateDoc, options);
 
-        return {status: true, result: result}
+        return {status: true, message: "success"}
     } catch (error) {
-        error.message
-        return {status: false, result: "save failed"}
+        return {status: false, result: "fail"}
     }
 }
 
+//updateThemeCard function
+// {
+//     "id_profile": "uuid1",
+//     "id_card": "uuid2",
+//     "card_theme_style": "default"
+// }
+async function updateThemeCard(theme_req) {
+    try {
+        const database = client.db(database_env);
+        const col = database.collection(col_env);
+        
+        const query = { id: theme_req.id, "card_all.id_card": theme_req.id_card }
+        const result = await col.updateOne(query, { $set: { "card_all.$.card_theme_style" : theme_req.card_theme_style}})
+
+        return { status: true, message: "success"}
+    } catch(error) {
+        return { status: false, message: "fail"}
+    }
+}
 
 //deleteCard function
 //change state of solf_delete
@@ -194,30 +212,10 @@ async function deleteCard(delete_req) {
 
         const result = await col.updateOne(query, { $set: { "card_all.$.solf_delete" : true } });
 
-        return { status: true, result: result }
+        return { status: true, message: "success" }
     } catch (error) {
-        error.message
-        return {status: false, result: "delete failed"}
+        return {status: false, message: "fail"}
     }
 }
 
-//changeUUid function
-//{ id_card: ""}
-async function changeUuid(change_req) {
-    try {
-        const database = client.db(database_env);
-        const col = database.collection(col_env);
-
-        const query = { "card_all.id_card": change_req.id_card }
-        let new_card_uuid = uuidv4();
-
-        const result = await col.updateOne(query, { $set: { "card_all.$.id_card" : new_card_uuid } });
-        
-        return { status: true, result: result}
-    } catch(error) {
-        error.message
-        return {status: false, result: "change uuid failed"}
-    }
-}
-
-module.exports = { updatePicCard, createNewCard, saveCard, deleteCard, changeUuid };
+module.exports = { updatePicCard, createNewCard, updateThemeCard, saveCard, deleteCard };
