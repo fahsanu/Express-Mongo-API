@@ -36,11 +36,16 @@ async function getAllCard(getAll_req) {
         const col = database.collection(col_env);
 
         const query = { id: getAll_req.id };
-        const options = { projection: { _id: 0 , card_all: { $in: {solf_delete: false}} } };
-
+        const options = { projection: { _id: 0 , card_all: 1 } };
         const result = await col.find(query, options).toArray();
 
-        return { status: true, message: "success", result: result }
+        const filterValue = result[0].card_all.filter(obj => {
+            if (obj['solf_delete'] === true) {
+                return false
+            } return true
+        })
+        
+        return { status: true, message: "success", result: filterValue }
     } catch (error) {
         return { status: false, message: "fail", result: {}}
     }
@@ -60,11 +65,17 @@ async function getPerCardPublic(getOne_req) {
         const col = database.collection(col_env);
         
         const query = { id : getOne_req.id };
-        const options = { projection: { _id: 0 , card_all: { $elemMatch: { id_card: getOne_req.id_card , solf_delete: false }} } };
+        const options = { projection: { _id: 0 , set_active_card: 1 } };
 
-        const result = await col.findOne(query, options);
+        const result_active = await col.findOne(query, options);
 
-        return { status: true, message: "success", result: result }
+        const query2 = { "card_all.id_card" : result_active.set_active_card };
+        const options2 = { projection: { _id: 0 , card_all: { $elemMatch: { id_card: result_active.set_active_card , solf_delete: false}} } };
+        const result = await col.findOne(query2, options2);
+  
+        const final_result = Object.assign(result.card_all[0], {id: getOne_req.id})
+
+        return { status: true, message: "success", result: final_result}
     } catch (error) {
         return { status: false, message: "fail", result: {} }
     }

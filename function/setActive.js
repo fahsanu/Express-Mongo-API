@@ -17,7 +17,7 @@ async function setActiveCard(active_req) {
         const database = client.db(database_env);
         const col = database.collection(col_env);
 
-        const ref = { id: body_req.id }
+        const ref = { id: active_req.id }
 
         const result = await col.updateOne(ref, { $set: { set_active_card: active_req.set_active_card } });
 

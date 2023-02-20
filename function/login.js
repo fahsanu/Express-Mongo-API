@@ -20,7 +20,7 @@ async function login(login_req) {
         const database = client.db(database_env);
         const col = database.collection(col_env);
 
-        const provider_splited = login_req.email.substring(login_req.email.indexOf("@") + 1, login_req.email.lastIndexOf("."));
+        const provider_splited = login_req.email.substring(login_req.email.indexOf("@") + 1);
 
         const result = await col.findOne({ email: login_req.email }, { projection: {_id: 0 }} );
 
@@ -54,6 +54,7 @@ async function login(login_req) {
                     workPhone: "",
                     friend_list: [],
                     set_active_card: card_uuid,
+                    friend_list: [],
                     card_all: [
                         {
                             id_card: card_uuid,

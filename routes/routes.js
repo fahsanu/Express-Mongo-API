@@ -201,7 +201,7 @@ router.post('/api/v1/add_friend', async(req, res) => {
 })
 
 //deleteFriend
-router.delete('/api/v1/delete_friend', async(req, res) => {
+router.post('/api/v1/delete_friend', async(req, res) => {
     try{
         const output = await deleteFriend(req.body)
         res.send(output)
